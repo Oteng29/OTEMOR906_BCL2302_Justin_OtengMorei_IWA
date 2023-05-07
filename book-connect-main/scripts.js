@@ -9,24 +9,28 @@ if (!books && !Array.isArray(books)) {throw new Error('Source required') }
 if (!page && page.length < 2) {throw new Error('Range must be an array with two numbers')}
 
 //DECLARED THE VARIABLES
+//day: an object that stores color values for the day theme.
 const day = {               //added const to declare 'day' variable
     dark: '10, 10, 20',
     light: '255, 255, 255',
 }
+//night: an object that stores color values for the night theme.
 const night = {            //added const to declare 'night' variable
     dark: '255, 255, 255',
     light: '10, 10, 20',
 }
 
 //Updated code to initializes a startIndex variable to 0 and an endIndex variable to 36.
+//preview: an object created using document.createElement that represents a preview for a book.
 const fragment = document.createDocumentFragment()   //added const to declare 'fragment' variable
 let startIndex = 0;                                  //created a 'startIndex' variable and declared it with a 'let'
 let endIndex = 36;                                   //cretaed a 'endIndex' variable and declared it with a 'let'
 const extracted = books.slice(startIndex, endIndex)
 
-for (let i = 0; i < extracted.length; i++) {
-    const preview = document.createElement('dl')      //created a new dl element for each preview
-    preview.className = 'preview'
+for (let i = 0; i < extracted.length; i++) {          //'i' variable is used in a 'for' loop to iterate through the extracted array.
+    const preview = document.createElement('dl')      //'preview' variable holds a newly created 'dl' element for each preview.
+    preview.className = 'preview'                     //className: a property of preview that sets the class of the element.
+   //dataset.description, dataset.genre: properties of preview that store data for each book preview. 
     preview.dataset.id = books[i].id
     preview.dataset.title = books[i].title
     preview.dataset.image = books[i].image
@@ -46,15 +50,17 @@ for (let i = 0; i < extracted.length; i++) {
      //console.log(preview)
     fragment.appendChild(preview)
     }
-const booklist1 = document.querySelector('[data-list-items]')
+const booklist1 = document.querySelector('[data-list-items]')   //'booklist1' variable holds a reference to the element that will contain the book previews.
 booklist1.appendChild(fragment)
 
 
 //CODE DISPLAYS THE SEARCH BUTTON
+//'searchbutton' variable holds a reference to the search button element.
 const searchbutton = document.querySelector("[data-header-search]");
 searchbutton.addEventListener('click', () => {
  document.querySelector("[data-search-overlay]").style.display = "block";
 })
+//'searchCancel' variable holds a reference to the cancel search button element.
 const searchCancel = document.querySelector("[data-search-cancel]");
 searchCancel.addEventListener('click', () => {
  document.querySelector("[data-search-overlay]").style.display = "none";
@@ -62,17 +68,21 @@ searchCancel.addEventListener('click', () => {
 
 
 //CODE DISPLAYS SETTINGS
+//'settingbutton' variable holds a reference to the settings button element.
 const settingbutton = document.querySelector("[data-header-settings]")
 settingbutton.addEventListener('click', () => {
  document.querySelector("[data-settings-overlay]").style.display = "block";
 })
+//'settingCancel' variable holds a reference to the cancel settings button element.
 const settingCancel = document.querySelector('[data-settings-cancel]')
 settingCancel.addEventListener('click', () => {
 document.querySelector("[data-settings-overlay]").style.display = "none";
 })
 
 //THE CODE DISPLAYS THE THEME OF THE APP: DAY(LIGHT) and DARK(NIGHT)
+//'dataSettingsTheme' variable holds a reference to the theme settings element.
 const dataSettingsTheme = document.querySelector('[data-settings-theme]')
+//'saveButton' variable holds a reference to the save button element.
 const saveButton = document.querySelector("body > dialog:nth-child(5) > div > div > button.overlay__button.overlay__button_primary")
 saveButton.addEventListener('click', (event) =>{
     event.preventDefault()
@@ -89,6 +99,7 @@ saveButton.addEventListener('click', (event) =>{
 } )
 
 //CODE DISPLAYS THE SEARCH OPTIONS OF 'ALL GENRES' AND 'ALL AUTHORS'
+//authorSelect: a variable that holds a reference to the select element for authors.
 const authorSelect = document.querySelector("[data-search-authors]");
 for (const authorId in authors) {
   const optionElement = document.createElement('option')
@@ -96,6 +107,7 @@ for (const authorId in authors) {
   optionElement.textContent = authors[authorId]
   authorSelect.appendChild(optionElement)
 }
+//genreSelect: a variable that holds a reference to the select element for genres.
 const genreSelect = document.querySelector("[data-search-genres]");
 for (const genreId in genres) {
   const optionElement = document.createElement('option')
@@ -107,7 +119,8 @@ for (const genreId in genres) {
 }
 
 //CODE DISPLAYS THE BOOK DETAILS
-const detailsToggle = (event) => {
+//detailsToggle: a function that shows the book details when a preview is clicked.
+const detailsToggle = (event) => {  
     const overlay1 = document.querySelector('[data-list-active]');
     const title = document.querySelector('[data-list-title]')
     const subtitle = document.querySelector('[data-list-subtitle]')
@@ -121,10 +134,11 @@ const detailsToggle = (event) => {
     event.target.dataset.image ? image1.setAttribute ('src', event.target.dataset.image) : undefined;
     event.target.dataset.image ? imageblur.setAttribute ('src', event.target.dataset.image) : undefined;
 };
-const detailsClose = document.querySelector('[data-list-close]')
+const detailsClose = document.querySelector('[data-list-close]')    //detailsClose: a variable that holds a reference to the close button element for book details.
 detailsClose.addEventListener('click', () => {
 document.querySelector("[data-list-active]").style.display = "none";
 })
+//bookclick: a variable that holds a reference to the element that will be clicked to show the book details.
 const bookclick = document.querySelector('[data-list-items]')
 bookclick.addEventListener('click', detailsToggle)
 
@@ -136,7 +150,7 @@ const showMoreButton = document.querySelector('[data-list-button]')
     const showMoreButtonText = `Show More (${numItemsToShow})`
     showMoreButton.textContent = showMoreButtonText
 
-showMoreButton.addEventListener('click', () => {
+showMoreButton.addEventListener('click', () => {         //addEventListener: a function that adds an event listener to an element.
     const fragment = document.createDocumentFragment()
     startIndex += 36;
     endIndex += 36;
@@ -165,6 +179,7 @@ showMoreButton.addEventListener('click', () => {
         </div>`
         fragment.appendChild(preview)
     }
-    const booklist1 = document.querySelector('[data-list-items]')
+    //booklist1: a variable that holds a reference to the element that will contain the book previews.
+    const booklist1 = document.querySelector('[data-list-items]') 
     booklist1.appendChild(fragment)
 })
