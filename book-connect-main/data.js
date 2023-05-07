@@ -1,4 +1,4 @@
-
+//This code exports four variables: BOOKS_PER_PAGE, authors, genres, and books.
 export const BOOKS_PER_PAGE = 36;
 
 export const authors = {

@@ -18,14 +18,14 @@ const night = {            //added const to declare 'night' variable
     light: '10, 10, 20',
 }
 
-//
+//Updated code to initializes a startIndex variable to 0 and an endIndex variable to 36.
 const fragment = document.createDocumentFragment()   //added const to declare 'fragment' variable
-let startIndex = 0;
-let endIndex = 36;
+let startIndex = 0;                                  //created a 'startIndex' variable and declared it with a 'let'
+let endIndex = 36;                                   //cretaed a 'endIndex' variable and declared it with a 'let'
 const extracted = books.slice(startIndex, endIndex)
 
 for (let i = 0; i < extracted.length; i++) {
-    const preview = document.createElement('dl')
+    const preview = document.createElement('dl')      //created a new dl element for each preview
     preview.className = 'preview'
     preview.dataset.id = books[i].id
     preview.dataset.title = books[i].title
@@ -34,7 +34,7 @@ for (let i = 0; i < extracted.length; i++) {
     preview.dataset.description = books[i].description
     preview.dataset.genre = books[i].genres
 
-    //creates a template to structure the html then append the preview to fragment
+    //Creates the preview's HTML structure using innerHTML and append the preview to fragment
     preview.innerHTML= /*html*/`
     <div>
     <image class='preview__image' src="${books[i].image}" alt="book pic"}/>
@@ -61,7 +61,7 @@ searchCancel.addEventListener('click', () => {
 })
 
 
-//Settings
+//CODE DISPLAYS SETTINGS
 const settingbutton = document.querySelector("[data-header-settings]")
 settingbutton.addEventListener('click', () => {
  document.querySelector("[data-settings-overlay]").style.display = "block";
@@ -106,7 +106,6 @@ for (const genreId in genres) {
   genreSelect.appendChild(optionElement)
 }
 
-//for the books to display their details
 //CODE DISPLAYS THE BOOK DETAILS
 const detailsToggle = (event) => {
     const overlay1 = document.querySelector('[data-list-active]');
@@ -129,9 +128,10 @@ document.querySelector("[data-list-active]").style.display = "none";
 const bookclick = document.querySelector('[data-list-items]')
 bookclick.addEventListener('click', detailsToggle)
 
-//THIS CODE DISPLAYS ShowMore BUTTON 
+
+//THIS CODE DISPLAYS 'ShowMore' BUTTON 
 const showMoreButton = document.querySelector('[data-list-button]')
-    // The code Update the text of the "Show More" button to display how many more items will be displayed
+    // Changed the text of the "Show More" button to display how many more books will be displayed
     const numItemsToShow = Math.min(books.length - endIndex,)
     const showMoreButtonText = `Show More (${numItemsToShow})`
     showMoreButton.textContent = showMoreButtonText
